@@ -1,0 +1,279 @@
+syntax = "proto3";
+
+message Path {
+  // components are joined by "/" to form a path
+  repeated string components = 1;
+}
+
+message TargetBuffer {
+  // a buffer for reading is allocated with `size` bytes
+  uint32 size = 1;
+}
+
+message DataBuffer {
+  // a buffer for writing is initialized with `data`.
+  bytes data = 1;
+}
+
+message GetAttr {
+  Path path = 1;
+}
+
+message ReadLink {
+  Path path = 1;
+  TargetBuffer target = 2;
+}
+
+message MkNod {
+  Path path = 1;
+  uint32 mode = 2;
+  uint64 dev = 3;
+}
+
+message MkDir {
+  Path path = 1;
+  uint32 mode = 2;
+}
+
+message Unlink {
+  Path path = 1;
+}
+
+message RmDir {
+  Path path = 1;
+}
+
+message SymLink {
+  Path path = 1;
+  string target = 2;
+}
+
+message Rename {
+  Path old_path = 1;
+  Path new_path = 2;
+  uint32 flags = 3;
+}
+
+message Link {
+  Path old_path = 1;
+  Path new_path = 2;
+}
+
+message ChMod {
+  Path path = 1;
+  uint32 mode = 2;
+}
+
+message ChOwn {
+  Path path = 1;
+  uint32 uid = 2;
+  uint32 gid = 3;
+}
+
+message Truncate {
+  Path path = 1;
+  int64 size = 2;
+}
+
+message Open {
+  Path path = 1;
+  int32 flags = 2;
+}
+
+message Read {
+  Path path = 1;
+  int64 offset = 3;
+  TargetBuffer buf = 4;
+}
+
+message Write {
+  Path path = 1;
+  DataBuffer buf = 2;
+  int64 offset = 3;
+}
+
+message StatFs {
+  Path path = 1;
+}
+
+message Flush {
+  Path path = 1;
+}
+
+message Release {
+  Path path = 1;
+}
+
+message FSync {
+  Path path = 1;
+}
+
+message SetXAttr {
+  Path path = 1;
+  string name = 2;
+  DataBuffer value = 3;
+  uint32 flags = 4;
+}
+
+message GetXAttr {
+  Path path = 1;
+  string name = 2;
+  TargetBuffer value = 3;
+}
+
+message ListXAttr {
+  Path path = 1;
+  TargetBuffer list = 2;
+}
+
+message RemoveXAttr {
+  Path path = 1;
+  string name = 2;
+}
+
+message OpenDir {
+  Path path = 1;
+}
+
+message ReadDir {
+  Path path = 1;
+  uint64 offset = 2;
+  TargetBuffer buf = 3;
+  uint64 flags = 4;
+}
+
+message ReleaseDir {
+  Path path = 1;
+}
+
+message FSyncDir {
+  Path path = 1;
+}
+
+message Access {
+  Path path = 1;
+  int32 mask = 2;
+}
+
+message Create {
+  Path path = 1;
+  uint32 mode = 2;
+}
+
+message Lock {
+  Path path = 1;
+  int32 cmd = 2;
+}
+
+message UTimeNs {
+  Path path = 1;
+  int64 atime_sec = 2;
+  int64 atime_nsec = 3;
+  int64 mtime_sec = 4;
+  int64 mtime_nsec = 5;
+}
+
+message BMap {
+  Path path = 1;
+  uint64 blocksize = 2;
+  uint64 idx = 3;
+}
+
+message IoCtl {
+  Path path = 1;
+  int32 cmd = 2;
+  uint32 flags = 3;
+}
+
+message Poll {
+  Path path = 1;
+  uint32 events = 2;
+}
+
+message WriteBuf {
+  Path path = 1;
+  DataBuffer buf = 2;
+  uint64 offset = 3;
+}
+
+message ReadBuf {
+  Path path = 1;
+  uint64 size = 2;
+  uint64 offset = 3;
+}
+
+message FLock {
+  Path path = 1;
+  int32 op = 2;
+}
+
+message FAllocate {
+  Path path = 1;
+  int32 mode = 2;
+  int64 offset = 3;
+  int64 length = 4;
+}
+
+message CopyFileRange {
+  Path path_in = 1;
+  int64 offset_in = 2;
+  Path path_out = 3;
+  int64 offset_out = 4;
+  uint64 size = 5;
+  int32 flags = 6;
+}
+
+message LSeek {
+  Path path = 1;
+  int64 offset = 2;
+  int32 whence = 3;
+}
+
+message Command {
+  oneof command {
+    GetAttr getattr = 1;
+    ReadLink readlink = 2;
+    MkNod mknod = 3;
+    MkDir mkdir = 4;
+    Unlink unlink = 5;
+    RmDir rmdir = 6;
+    SymLink symlink = 7;
+    Rename rename = 8;
+    Link link = 9;
+    ChMod chmod = 10;
+    ChOwn chown = 11;
+    Truncate truncate = 12;
+    Open open = 13;
+    Read read = 14;
+    Write write = 15;
+    StatFs statfs = 16;
+    Flush flush = 17;
+    Release release = 18;
+    FSync fsync = 19;
+    SetXAttr setxattr = 20;
+    GetXAttr getxattr = 21;
+    ListXAttr listxattr = 22;
+    RemoveXAttr removexattr = 23;
+    OpenDir opendir = 24;
+    ReadDir readdir = 25;
+    ReleaseDir releasedir = 26;
+    FSyncDir fsyncdir = 27;
+    Access access = 28;
+    Create create = 29;
+    Lock lock = 30;
+    UTimeNs utimens = 31;
+    BMap bmap = 32;
+    IoCtl ioctl = 33;
+    Poll poll = 34;
+    WriteBuf write_buf = 35;
+    ReadBuf read_buf = 36;
+    FLock flock = 37;
+    FAllocate fallocate = 38;
+    CopyFileRange copy_file_range = 39;
+    LSeek lseek = 40;
+  }
+}
+
+message Session {
+  repeated Command commands = 1;
+}
