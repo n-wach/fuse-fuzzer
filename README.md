@@ -20,7 +20,7 @@ See `CMakelists.txt` and the rest of the source code for more details.
 This repo is mostly a reference. You'll want to copy/modify it for your own project. It certainly won't build as-is.
 
 If you're having trouble building or linking, I suggest starting with
-(a bare-bones setup)[https://github.com/n-wach/fuzzing-with-cmake].
+[a bare-bones setup](https://github.com/n-wach/fuzzing-with-cmake).
 
 ### Fuzzing
 
